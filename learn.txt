@@ -1,0 +1,13 @@
+LoginPage
+  ↓
+AuthNotifier (AsyncNotifier)
+  ↓
+AuthRepositoryImpl
+  ↓
+AuthRemoteDataSource
+  ↓
+Dio
+  ↓
+Beeceptor API
+  ↓
+Token saved (Secure Storage)

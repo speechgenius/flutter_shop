@@ -1,0 +1,29 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/providers.dart';
+
+class AuthNotifier extends AsyncNotifier<void> {
+  late final repo = ref.read(authRepositoryProvider);
+
+  @override
+  Future<void> build() async {
+    // used for initialization (e.g. check token later)
+  }
+
+  // ---------------- LOGIN ----------------
+  Future<void> login(String email, String password) async {
+    state = const AsyncLoading();
+
+    state = await AsyncValue.guard(() async {
+      await repo.login(email, password);
+    });
+  }
+
+  // ---------------- LOGOUT ----------------
+  Future<void> logout() async {
+    state = const AsyncLoading();
+
+    state = await AsyncValue.guard(() async {
+      await repo.logout();
+    });
+  }
+}
