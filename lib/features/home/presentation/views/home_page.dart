@@ -12,14 +12,15 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  late ProviderSubscription authSub;
+
   @override
   void initState() {
     super.initState();
 
-    ref.listen(authNotifierProvider, (prev, next) {
+    authSub = ref.listenManual(authNotifierProvider, (prev, next) {
       next.whenOrNull(
         data: (_) {
-          // logout success → redirect
           if (mounted) {
             context.go('/login');
           }
@@ -33,6 +34,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         },
       );
     });
+  }
+
+  @override
+  void dispose() {
+    authSub.close();
+    super.dispose();
   }
 
   @override

@@ -5,14 +5,16 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this.dio);
 
-  Future<void> login(String email, String password) async {
-    await dio.post(
+  Future<Map<String, dynamic>> login(String email, String password) async {
+    final response = await dio.post(
       '/auth/login',
       data: {
         'email': email,
         'password': password,
       },
     );
+
+    return response.data;
   }
 
   Future<void> logout() async {

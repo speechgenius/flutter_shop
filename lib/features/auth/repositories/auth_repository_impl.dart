@@ -8,17 +8,23 @@ class AuthRepositoryImpl {
   AuthRepositoryImpl(this.remote, this.storage);
 
   Future<void> login(String email, String password) async {
-    await remote.login(email, password);
+    final data = await remote.login(email, password);
 
-    // Example: save token (depends on your API response)
-    // await storage.saveToken(token);
+    final token = data['token'];
+
+    if (token == null) {
+      throw Exception("Token missing from response");
+    }
+
+    await storage.save(token);
   }
 
   Future<void> logout() async {
-    // 1. Call backend logout
     await remote.logout();
+    await storage.delete();
+  }
 
-    // 2. Clear local session
-    // await storage.clearToken();
+  Future<bool> isLoggedIn() async {
+    return await storage.hasToken();
   }
 }
