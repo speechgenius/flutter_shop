@@ -4,57 +4,44 @@ import 'package:go_router/go_router.dart';
 
 import '../../../auth/presentation/state/auth_notifier.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  late ProviderSubscription authSub;
-
-  @override
-  void initState() {
-    super.initState();
-
-    authSub = ref.listenManual(authNotifierProvider, (prev, next) {
-      next.whenOrNull(
-        data: (_) {
-          if (mounted) {
-            context.go('/login');
-          }
-        },
-        error: (e, _) {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(e.toString())),
-            );
-          }
-        },
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    authSub.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
     final auth = ref.read(authNotifierProvider.notifier);
+
+    // ✅ Side-effects (NOT business logic)
+    ref.listen<AsyncValue<AuthStatus>>(authNotifierProvider, (prev, next) {
+      if (next is AsyncData<AuthStatus>) {
+        if (next.value == AuthStatus.unauthenticated) {
+          context.go('/login');
+        }
+      }
+
+      if (next is AsyncError<AuthStatus>) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.error.toString())),
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              auth.logout();
-            },
+            icon: authState.isLoading
+                ? const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+                : const Icon(Icons.logout),
+            onPressed: authState.isLoading
+                ? null
+                : () => auth.logout(),
           ),
         ],
       ),
