@@ -45,8 +45,13 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text("Welcome Home"),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            context.push('/products/search');
+          },
+          child: const Text('Search Products'),
+        ),
       ),
     );
   }
