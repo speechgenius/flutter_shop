@@ -20,6 +20,6 @@ final mock = ref.read(productMockDataSourceProvider);
   return ProductRepositoryImpl(
       remote: remote,
       mock: mock,
-      useMock: false
+      useMock: true
   );
 });
