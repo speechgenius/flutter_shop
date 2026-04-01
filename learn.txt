@@ -11,3 +11,47 @@ Dio
 Beeceptor API
   ↓
 Token saved (Secure Storage)
+
+
+
+
+UI (SearchForm)
+   ↓
+Notifier (Riverpod)
+   ↓
+Repository (Abstraction)
+   ↓
+DataSource (Dio API)
+   ↓
+Backend
+
+
+
+
+lib/
+├── app/
+├── core/
+└── features/
+    ├── auth/
+    ├── home/
+    ├── products/
+    ├── search/   (optional shared feature)
+    └── orders/   (future)
+
+features/products/
+├── data/
+│   ├── datasources/
+│   ├── repositories/
+│   └── providers.dart
+│
+├── domain/
+│   ├── entities/
+│   └── repositories/
+│
+└── presentation/
+    ├── state/
+    ├── views/
+    └── widgets
+
+
+UI → Notifier → Repository → DataSource → API
