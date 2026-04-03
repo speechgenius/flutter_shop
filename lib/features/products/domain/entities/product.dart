@@ -6,6 +6,7 @@ class Product {
   final double price;
   final int quantity;
   final String description;
+  final String imageUrl;
 
   const Product({
     required this.productName,
@@ -13,6 +14,7 @@ class Product {
     required this.subCategory,
     required this.price,
     required this.quantity,
-    required this.description
+    required this.description,
+    required this.imageUrl,
 });
 }

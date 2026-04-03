@@ -8,25 +8,24 @@ part 'product_search_notifier.g.dart';
 class ProductSearchNotifier extends _$ProductSearchNotifier {
   @override
   FutureOr<List<Product>> build() async {
-    // initial empty state
-    return [];
+    final repo = ref.read(productRepositoryProvider);
+
+    // 🔥 HomePage uses this
+    return await repo.getAllProducts();
   }
 
   Future<void> search(String query) async {
-    if (query.isEmpty) {
-      state = const AsyncData([]);
-      return;
-    }
+    final repo = ref.read(productRepositoryProvider);
 
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async {
-      final repo = ref.read(productRepositoryProvider);
+      if (query.isEmpty) {
+        // 🔥 Back to ALL products
+        return await repo.getAllProducts();
+      }
+
       return await repo.searchProducts(query);
     });
-  }
-
-  void clear() {
-    state = const AsyncData([]);
   }
 }
