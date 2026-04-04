@@ -48,6 +48,7 @@ class ProductRemoteDatasource {
       quantity: e['quantity'] ?? 0,
       description: e['description'] ?? '',
       imageUrl: e['image_url'] ?? '',
+        availability: e['availability']
     );
   }
 }

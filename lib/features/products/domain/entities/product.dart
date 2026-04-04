@@ -7,6 +7,7 @@ class Product {
   final int quantity;
   final String description;
   final String imageUrl;
+  final String availability;
 
   const Product({
     required this.productName,
@@ -16,5 +17,11 @@ class Product {
     required this.quantity,
     required this.description,
     required this.imageUrl,
+    required this.availability
 });
 }
+
+// availability
+/*
+* i expect it to have values: out of stock, available, limited availability /
+* */

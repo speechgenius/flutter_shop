@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../auth/presentation/state/auth_notifier.dart';
 import '../../../products/presentation/state/product_search_notifier.dart';
@@ -46,6 +47,21 @@ class _HomePageState extends ConsumerState<HomePage> {
     final productState = ref.watch(productSearchNotifierProvider);
     final notifier = ref.read(productSearchNotifierProvider.notifier);
 
+    ref.listen<AsyncValue<AuthStatus>>(authNotifierProvider, (prev, next) {
+      next.whenOrNull(
+        data: (status) {
+          if (status == AuthStatus.unauthenticated) {
+            context.go('/login');
+          }
+        },
+        error: (err, st) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(err.toString())),
+          );
+        },
+      );
+    });
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
 
@@ -60,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: CircularProgressIndicator(strokeWidth: 2),
             )
                 : const Icon(Icons.logout),
-            onPressed: authState.isLoading ? null : auth.logout,
+            onPressed: authState.isLoading ? null : () => auth.logout(),
           ),
         ],
       ),

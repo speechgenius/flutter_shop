@@ -29,6 +29,7 @@ class ProductMockDataSource {
       quantity: 10,
       description: "Apple MacBook Air M2 chip...",
       imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
+      availability: ""
     ),
     Product(
       productName: "MacBook Pro 14-inch M3",
@@ -38,6 +39,7 @@ class ProductMockDataSource {
       quantity: 5,
       description: "MacBook Pro 14-inch M3...",
       imageUrl: "https://images.unsplash.com/photo-1511385348-a52b4a160dc2?w=800",
+        availability: ""
     ),
     Product(
       productName: "MacBook Pro 16-inch M3 Max",
@@ -47,6 +49,7 @@ class ProductMockDataSource {
       quantity: 3,
       description: "MacBook Pro 16-inch M3 Max...",
       imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800",
+        availability: ""
     ),
     Product(
       productName: "MacBook Air M1 (13-inch)",
@@ -56,6 +59,7 @@ class ProductMockDataSource {
       quantity: 15,
       description: "MacBook Air M1 chip...",
       imageUrl: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800",
+        availability: ""
     ),
   ];
 }
