@@ -20,8 +20,3 @@ class Product {
     required this.availability
 });
 }
-
-// availability
-/*
-* i expect it to have values: out of stock, available, limited availability /
-* */
