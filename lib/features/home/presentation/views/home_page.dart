@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../auth/presentation/state/auth_notifier.dart';
-import '../../../products/presentation/state/product_search_notifier.dart';
+import 'package:consistency/features/auth/presentation/state/auth_notifier.dart';
+import 'package:consistency/features/products/presentation/state/product_search_notifier.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -66,7 +66,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       backgroundColor: Colors.grey[100],
 
       appBar: AppBar(
-        title: const Text("Discover"),
+        title: const Text("HOME: Discover"),
         actions: [
           IconButton(
             icon: authState.isLoading

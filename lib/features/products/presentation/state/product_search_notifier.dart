@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../domain/entities/product.dart';
-import '../../data/providers.dart';
+import 'package:consistency/features/products/domain/entities/product.dart';
+import 'package:consistency/features/products/data/providers.dart';
 
 part 'product_search_notifier.g.dart';
 

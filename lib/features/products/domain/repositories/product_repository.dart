@@ -6,4 +6,6 @@ abstract class ProductRepository {
 
   /// Search products by query (Search screen)
   Future<List<Product>> searchProducts(String query);
+
+  Future<Product> getProductById(String id);
 }

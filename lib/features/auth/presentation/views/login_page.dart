@@ -21,7 +21,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       next.whenOrNull(
         data: (_) {
           if (mounted) {
-            context.go('/home');
+            context.go('/products/search');
           }
         },
         error: (e, _) {

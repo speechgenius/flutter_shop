@@ -19,9 +19,16 @@ class ProductMockDataSource {
     }).toList();
   }
 
-  // 🔥 Move products here (shared source)
+  Product getProductById(String id) {
+    return _products.firstWhere(
+          (p) => p.id == id,
+      orElse: () => throw Exception("Product not found"),
+    );
+  }
+
   final List<Product> _products = const [
     Product(
+      id: "1",
       productName: "MacBook Air M2 (13-inch)",
       category: "Electronics",
       subCategory: "Laptops",
@@ -29,9 +36,11 @@ class ProductMockDataSource {
       quantity: 10,
       description: "Apple MacBook Air M2 chip...",
       imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
-      availability: ""
+      availability: "in_stock",
     ),
+
     Product(
+      id: "2",
       productName: "MacBook Pro 14-inch M3",
       category: "Electronics",
       subCategory: "Laptops",
@@ -39,9 +48,11 @@ class ProductMockDataSource {
       quantity: 5,
       description: "MacBook Pro 14-inch M3...",
       imageUrl: "https://images.unsplash.com/photo-1511385348-a52b4a160dc2?w=800",
-        availability: ""
+      availability: "in_stock",
     ),
+
     Product(
+      id: "3",
       productName: "MacBook Pro 16-inch M3 Max",
       category: "Electronics",
       subCategory: "Laptops",
@@ -49,9 +60,11 @@ class ProductMockDataSource {
       quantity: 3,
       description: "MacBook Pro 16-inch M3 Max...",
       imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800",
-        availability: ""
+      availability: "limited",
     ),
+
     Product(
+      id: "4",
       productName: "MacBook Air M1 (13-inch)",
       category: "Electronics",
       subCategory: "Laptops",
@@ -59,7 +72,7 @@ class ProductMockDataSource {
       quantity: 15,
       description: "MacBook Air M1 chip...",
       imageUrl: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=800",
-        availability: ""
+      availability: "in_stock",
     ),
   ];
 }

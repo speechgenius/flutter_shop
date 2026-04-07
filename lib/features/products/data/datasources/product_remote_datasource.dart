@@ -1,5 +1,4 @@
 import 'package:consistency/core/network/dio_client.dart';
-
 import '../../domain/entities/product.dart';
 
 class ProductRemoteDatasource {
@@ -41,6 +40,8 @@ class ProductRemoteDatasource {
   /// =========================
   Product _mapToProduct(dynamic e) {
     return Product(
+      id: e['id'] ?? e['_id'] ?? '', // ✅ FIX ADDED HERE
+
       productName: e['product_name'] ?? '',
       category: e['category'] ?? '',
       subCategory: e['sub_category'] ?? '',
@@ -48,7 +49,16 @@ class ProductRemoteDatasource {
       quantity: e['quantity'] ?? 0,
       description: e['description'] ?? '',
       imageUrl: e['image_url'] ?? '',
-        availability: e['availability']
+      availability: e['availability'] ?? 'unknown',
     );
+  }
+
+  Future<Product> getProductById(String id) async {
+    final response = await _client.get(
+      '/products/$id',
+      auth: true,
+    );
+
+    return _mapToProduct(response.data);
   }
 }

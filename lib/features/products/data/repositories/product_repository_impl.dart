@@ -36,4 +36,13 @@ class ProductRepositoryImpl implements ProductRepository {
     }
     return remote.searchProducts(query);
   }
+
+  @override
+  Future<Product> getProductById(String id) async {
+    if (useMock) {
+      return mock.getProductById(id);
+    }
+
+    return remote.getProductById(id);
+  }
 }
